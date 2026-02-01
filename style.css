@@ -346,16 +346,15 @@ body {
         padding: 2rem;
     }
 }
+
 /* --- Services --- */
 .services-preview-grid { 
     padding: 120px 0; 
-    /* Soft gradient background for depth */
     background: linear-gradient(135deg, #fdfdfd 0%, #f4f9f4 100%); 
     position: relative;
     overflow: hidden;
 }
 
-/* Optional: Subtle decorative circle in the background */
 .services-preview-grid::after {
     content: '';
     position: absolute;
@@ -363,7 +362,7 @@ body {
     right: -5%;
     width: 400px;
     height: 400px;
-    background: rgba(135, 180, 53, 0.03); /* Extremely faint brand green */
+    background: rgba(135, 180, 53, 0.03);
     border-radius: 50%;
     z-index: 0;
 }
@@ -373,29 +372,29 @@ body {
     margin: 0 auto; 
     padding: 0 4rem; 
     position: relative;
-    z-index: 1; /* Ensures content stays above the decorative circle */
+    z-index: 1;
 }
 
 .container-services h2 {
     text-align: center;
-    font-size: 3.5rem; /* Slightly larger for the 1700px width */
+    font-size: 3.5rem;
     margin-bottom: 5rem;
-    color: #1a4335; /* Darker green for better contrast on light bg */
+    color: #1a4335;
 }
 
 .services-grid-layout { 
     display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); 
+    /* Changed 500px to 1fr to prevent overflow, added responsive minmax */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 500px), 1fr)); 
     gap: 4rem; 
 }
 
 .service-card-clean, 
 .service-card-label {
-    padding: 5rem 4rem; /* Increased padding to take more space */
+    padding: 5rem 4rem;
     border: 1px solid rgba(0,0,0,0.05); 
     border-radius: 24px;
     background: #ffffff;
-    /* Added a slight lift shadow even in rest state */
     box-shadow: 0 10px 30px rgba(0,0,0,0.02);
     transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     position: relative;
@@ -405,7 +404,6 @@ body {
     justify-content: center;
 }
 
-/* Decorative accent bar on hover */
 .service-card-clean::before,
 .service-card-label::before {
     content: '';
@@ -413,14 +411,14 @@ body {
     bottom: 0;
     left: 0;
     width: 0;
-    height: 8px; /* Slightly thicker bar */
+    height: 8px;
     background: #87b435;
     transition: width 0.4s ease;
 }
 
 .service-card-clean:hover, 
 .service-card-label:hover {
-    transform: translateY(-15px); /* Increased lift */
+    transform: translateY(-15px);
     box-shadow: 0 30px 60px rgba(0,0,0,0.1);
     border-color: #87b435;
 }
@@ -430,7 +428,6 @@ body {
     width: 100%;
 }
 
-/* Icon Support - Recommended if you add FontAwesome */
 .service-card-clean i, 
 .service-card-label i {
     font-size: 3.5rem;
@@ -451,6 +448,39 @@ body {
     line-height: 1.9;
     color: #555;
 }
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+    .container-services { padding: 0 2rem; }
+    .container-services h2 { font-size: 2.8rem; }
+    .services-grid-layout { gap: 2rem; }
+}
+
+@media (max-width: 768px) {
+    .services-preview-grid { padding: 60px 0; }
+    
+    .container-services h2 { 
+        font-size: 2.2rem; 
+        margin-bottom: 3rem; 
+    }
+
+    .service-card-clean, 
+    .service-card-label {
+        padding: 3rem 2rem;
+        border-radius: 16px;
+    }
+
+    .service-card-clean h3, 
+    .service-card-label h3 {
+        font-size: 1.8rem;
+    }
+
+    .service-card-clean p, 
+    .service-card-label p {
+        font-size: 1.1rem;
+    }
+}
+
 /* --- Advantage Pillars --- */
 .advantage-section-pillars { 
     padding: 100px 0; /* Increased from 80px (+25%) */
@@ -566,10 +596,13 @@ body {
 
 /* --------brands.html-----------*/
 
+/* --- Brands Hero Section --- */
 .brands-hero-section {
-    height: 60vh;
+    min-height: 60vh; /* Changed to min-height so content doesn't clip if it grows */
+    padding: 60px 20px; /* Ensures padding if text wraps on small screens */
     background: linear-gradient(rgba(26, 67, 53, 0.8), rgba(26, 67, 53, 0.8)), url('assets/images/hero-bg.jpg');
     background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -578,62 +611,74 @@ body {
 }
 
 .brands-hero-content h1 { 
-    font-size: clamp(3.5rem, 8vw, 5.5rem); /* Responsive scaling */
+    font-size: clamp(2.5rem, 8vw, 5.5rem); /* Lowered the minimum scale slightly */
     margin-bottom: 1.5rem; 
     font-weight: 800;
     line-height: 1.1;
-    letter-spacing: -2px; /* Tight, modern spacing */
-    
-    /* Gradient color effect */
+    letter-spacing: -1px; /* Reduced for better mobile readability */
     background: linear-gradient(to right, #ffffff, #87b435);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+    word-wrap: break-word; /* Prevents long words from breaking layout */
 }
 
 .brands-hero-content p { 
-    font-size: 1.6rem; 
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem); /* Made responsive */
     opacity: 0.95; 
     max-width: 850px; 
     margin: 0 auto;
     line-height: 1.6;
     font-weight: 300;
     color: #f0f0f0;
-    
-    /* Adding a subtle border-top to separate it from the title */
     border-top: 2px solid rgba(135, 180, 53, 0.5);
     padding-top: 1.5rem;
     display: inline-block;
 }
-/* Large Brand Rows */
+
+/* --- Brand Rows --- */
 .brand-detail-row {
-    padding: 150px 0; /* Huge vertical padding */
+    padding: clamp(60px, 10vw, 150px) 0; /* Fluid padding */
     display: flex;
     align-items: center;
+    width: 100%;
+    overflow: hidden; /* Safety net against overflow */
 }
 
 .alt-bg { background-color: #f4f9f4; }
 
 .brand-detail-container {
     max-width: 1700px;
+    width: 100%; /* Ensure it fills available space */
     margin: 0 auto;
-    padding: 0 4rem;
+    padding: 0 5%; /* Percentage padding is safer for responsiveness */
     display: flex;
-    gap: 100px;
+    gap: clamp(30px, 5vw, 100px); /* Fluid gap */
     align-items: center;
+    box-sizing: border-box;
 }
 
 .brand-detail-container.reverse { flex-direction: row-reverse; }
 
-.brand-detail-image { flex: 1; text-align: center; }
+.brand-detail-image { 
+    flex: 1; 
+    text-align: center;
+    min-width: 0; /* Critical for flexbox items with images */
+}
+
 .brand-detail-image img {
     max-width: 100%;
     height: auto;
+    display: block; /* Removes bottom whitespace */
+    margin: 0 auto;
     border-radius: 30px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.1);
 }
 
-.brand-detail-text { flex: 1; }
+.brand-detail-text { 
+    flex: 1; 
+    min-width: 0; 
+}
 
 .brand-tag {
     display: inline-block;
@@ -647,28 +692,50 @@ body {
 }
 
 .brand-detail-text h2 {
-    font-size: 3.5rem;
+    font-size: clamp(2rem, 5vw, 3.5rem); /* Fluid font size */
     color: #1a4335;
     margin-bottom: 25px;
+    line-height: 1.2;
 }
 
 .brand-detail-text p {
-    font-size: 1.25rem;
-    line-height: 1.9;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.8;
     color: #444;
     margin-bottom: 20px;
 }
 
+/* --- Media Queries --- */
+
 @media (max-width: 1024px) {
-    .brand-detail-container, .brand-detail-container.reverse {
+    .brand-detail-container, 
+    .brand-detail-container.reverse {
         flex-direction: column;
         text-align: center;
-        gap: 50px;
+        gap: 40px;
     }
+    
     .brand-detail-row { padding: 80px 0; }
+    
+    .brand-detail-image img {
+        max-width: 80%; /* Don't let it be too huge when stacked */
+    }
 }
 
-
+@media (max-width: 480px) {
+    .brand-detail-container {
+        padding: 0 1.5rem; /* Tighten margins on very small phones */
+    }
+    
+    .brand-detail-image img {
+        max-width: 100%; /* Use full width on small phones */
+        border-radius: 20px; /* Slightly smaller radius for small screens */
+    }
+    
+    .brand-detail-text h2 {
+        font-size: 1.8rem;
+    }
+}
 
 /*--------- services  ------------------     */
 /* --- Modern Services Style --- */
@@ -864,144 +931,6 @@ body {
         flex: none;
         justify-content: flex-start;
     }
-}
-
-
-/* whole sale range     */
-
-/* --- Wholesale Page Styling --- */
-.wholesale-page-main {
-    background-color: #fff;
-    overflow-x: hidden;
-}
-
-.wholesale-hero {
-    height: 70vh;
-    background: linear-gradient(rgba(26, 67, 53, 0.9), rgba(26, 67, 53, 0.9)), 
-                url('assets/images/wholesale-hero-bg.jpg') center/cover fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #fff;
-}
-
-.wholesale-hero-content h1 {
-    font-size: clamp(3.5rem, 8vw, 5.5rem);
-    background: linear-gradient(to right, #fff, #87b435);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 800;
-    margin-bottom: 20px;
-}
-
-/* Row Layouts */
-.wholesale-detail-row {
-    padding: 180px 0;
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-}
-
-.wholesale-detail-row.alt-bg { background-color: #f7faf7; }
-
-.wholesale-container {
-    max-width: 1700px;
-    margin: 0 auto;
-    padding: 0 5rem;
-    display: flex;
-    gap: 120px;
-    align-items: center;
-}
-
-.wholesale-container.reverse { flex-direction: row-reverse; }
-
-/* Visual Scaling */
-.wholesale-visual { flex: 1.4; position: relative; }
-
-.wholesale-visual img {
-    width: 100%;
-    max-width: 850px;
-    border-radius: 40px;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.12);
-}
-
-.spec-tag {
-    position: absolute;
-    bottom: -20px;
-    right: 40px;
-    background: #1a4335;
-    color: #87b435;
-    padding: 15px 30px;
-    border-radius: 15px;
-    font-weight: 700;
-    font-size: 1.2rem;
-}
-
-/* Text Elements */
-.wholesale-text { flex: 1; }
-
-.category-label {
-    color: #87b435;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-bottom: 15px;
-    display: block;
-}
-
-.wholesale-text h2 {
-    font-size: 4rem;
-    color: #1a4335;
-    margin-bottom: 30px;
-    line-height: 1.1;
-}
-
-.wholesale-text p {
-    font-size: 1.35rem;
-    line-height: 1.8;
-    color: #444;
-    margin-bottom: 30px;
-}
-
-/* Process & List Styling */
-.process-steps { margin-top: 40px; border-top: 1px solid #ddd; padding-top: 30px; }
-.step { margin-bottom: 15px; font-size: 1.1rem; color: #555; }
-.step strong { color: #1a4335; }
-
-.machinery-list { list-style: none; padding: 0; }
-.machinery-list li { 
-    padding: 15px 0; 
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    font-size: 1.2rem;
-}
-
-/* machinery icon box */
-/* Ensure the parent container handles the overflow of the rounded corners */
-.wholesale-visual .inputs-icon-box {
-    height: 550px;
-    background: #fff;
-    border-radius: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; /* This is crucial to keep the image inside the rounded corners */
-    position: relative;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.05);
-}
-
-/* Force the image to fill the container and act like a background */
-.inputs-icon-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* This makes the image cover the div without stretching */
-    object-position: center; /* Keeps the focus on the middle of the photo */
-    display: block;
-}
-
-@media (max-width: 1200px) {
-    .wholesale-container, .wholesale-container.reverse { flex-direction: column; text-align: center; gap: 60px; }
-    .wholesale-text h2 { font-size: 3rem; }
 }
 
 /* --- About Page Global fixes --- */
